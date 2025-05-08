@@ -18,3 +18,5 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/person/create', [PersonController::class, 'create'])->name('person.create');
 Route::post('/person/store', [PersonController::class, 'store'])->name('person.store');
+Route::get('/person/{person}/edit', [PersonController::class, 'edit'])->name('person.edit');
+Route::put('/person/{person}', [PersonController::class, 'update'])->name('person.update');

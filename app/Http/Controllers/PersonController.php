@@ -25,6 +25,24 @@ class PersonController extends Controller
 
         Person::create($validated);
 
-        return redirect('/')->with('success', 'شخص با موفقیت اضافه شد.');
+        return redirect('/person/create')->with('success', 'شخص با موفقیت اضافه شد.');
+    }
+    public function edit(Person $person)
+    {
+        $statuses = Status::all();
+        return view('person.edit', compact('person', 'statuses'));
+    }
+
+    public function update(Request $request, Person $person)
+    {
+        $validated = $request->validate([
+           'name' => 'required|string|max:255',
+           'status_id' => 'required|exists:statuses,id',
+           'hospital' => 'nullable|string|max:255',
+        ]);
+
+        $person->update($validated);
+
+        return redirect('/')->with('success', 'اطلاعات با موفقیت ویرایش شد.');
     }
 }
