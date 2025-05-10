@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PersonController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,9 @@ use App\Http\Controllers\PersonController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.adminHome');
+
 
 Route::get('/person/create', [PersonController::class, 'create'])->name('person.create');
 Route::post('/person/store', [PersonController::class, 'store'])->name('person.store');

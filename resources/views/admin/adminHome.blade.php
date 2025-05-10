@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>جستجوی افراد</title>
+    <title>لیست افراد</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
@@ -17,18 +17,6 @@
             overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: url('/images/00226075-1440.webp') no-repeat center center fixed;
-            background-size: cover;
-            opacity: 0.3; /* 🔆 Set background opacity here */
-            z-index: -1;   /* Push behind the content */
-        }
         .container {
             background-color: rgba(0, 0, 0, 0.6); /* semi-transparent black to improve readability */
             padding: 20px;
@@ -57,7 +45,6 @@
             <tr>
                 <th>نام</th>
                 <th>وضعیت</th>
-                <th>بیمارستان</th>
             </tr>
         </thead>
         <tbody>
@@ -65,7 +52,6 @@
                 <tr>
                     <td>{{ $person->name }}</td>
                     <td>{{ $person->status->name }}</td>
-                    <td>{{ $person->hospital}}</td>
                 </tr>
             @empty
                 <tr>
