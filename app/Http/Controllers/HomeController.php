@@ -8,14 +8,20 @@ use App\Models\Person;
 class HomeController extends Controller
 {
     //
-    public function index(Request $request)
+    public function index()
+    {
+
+        return view('home');
+    }
+
+    public function searchResult(Request $request)
     {
         $search = $request->input('search');
         $people = Person::with('status')->when($search, function($query, $search){
-            $query->where('name', 'like', "%{search}%");
+            $query->where('name', 'like', "%{$search}%");
         })
-        ->get();
+        ->paginate(10);
 
-        return view('home', compact('people', 'search'));
+        return view('results', compact('people', 'search'));
     }
 }

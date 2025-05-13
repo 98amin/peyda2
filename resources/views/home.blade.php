@@ -2,77 +2,103 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>جستجوی افراد</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- ✅ Enables mobile responsiveness -->
+    <title>جستجو</title>
+
+    <!-- ✅ Bootstrap and Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- ✅ Fonts -->
     <style>
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            min-height: 100vh;
-            overflow-x: hidden;
+        @font-face {
+            font-family: 'Anjoman';
+            src: url('/fonts/anjoman-light.ttf') format('truetype');
+            font-weight: 300;
+            font-style: normal;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: url('/images/00226075-1440.webp') no-repeat center center fixed;
-            background-size: cover;
-            opacity: 0.3; /* 🔆 Set background opacity here */
-            z-index: -1;   /* Push behind the content */
+        @font-face {
+            font-family: 'Anjoman';
+            src: url('/fonts/anjoman-thin.ttf') format('truetype');
+            font-weight: 200;
+            font-style: normal;
         }
-        .container {
-            background-color: rgba(0, 0, 0, 0.6); /* semi-transparent black to improve readability */
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Anjoman', sans-serif;
+            background: url('/images/peydaVertical.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .overlay {
+            min-height: 100vh;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .search-box {
+            background-color: rgba(255, 255, 255, 0.85);
             padding: 20px;
             border-radius: 10px;
-            margin-top: 50px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        table {
-            background-color: rgba(255, 255, 255, 0.8);
-            color: #000;
+        .input-group-text i {
+            font-size: 1.2rem;
         }
     </style>
 </head>
-<body class="container mt-5">
-    <h1 class="mb-4 text-center">جستجوی افراد</h1>
+<body>
+    <!-- ✅ Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid d-flex flex-row-reverse justify-content-between">
+            <a class="navbar-brand order-2" href="/">پیدا</a>
+            <button class="navbar-toggler order-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="نمایش منو">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse order-3" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">خانه</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/results">لیست تمامی اسامی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/associationResults">لیست مراکز درمانی</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <form method="GET" action="/">
-    <div class="input-group">
-        <span class="input-group-text"><i class="bi bi-search"></i></span>
-        <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="جستجو بر اساس نام">
+    <!-- ✅ Centered Search Box -->
+    <div class="overlay">
+        <div class="search-box">
+            <form method="GET" action="/results">
+                <div class="row g-2">
+                    <div class="col-12 col-md-9">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text rounded-start"><i class="bi bi-search"></i></span>
+                            <input type="text" name="search" class="form-control form-control-lg" placeholder="دنبال چه کسی میگردی؟">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 d-grid">
+                        <button class="btn btn-primary btn-lg" type="submit">جستجو</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</form>
-
-    <table class="table table-striped mt-3">
-        <thead>
-            <tr>
-                <th>نام</th>
-                <th>وضعیت</th>
-                <th>بیمارستان</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($people as $person)
-                <tr>
-                    <td>{{ $person->name }}</td>
-                    <td>{{ $person->status->name }}</td>
-                    <td>{{ $person->hospital}}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="2">موردی یافت نشد.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
 </body>
 </html>

@@ -16,6 +16,7 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/results', [HomeController::class, 'searchResult']);
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.adminHome');
 
