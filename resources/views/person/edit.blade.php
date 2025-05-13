@@ -32,7 +32,7 @@
             <label for="status_id" class="form-label">وضعیت</label>
             <select class="form-select" id="status_id" name="status_id" required>
                 @foreach($statuses as $status)
-                    <option value="{{ $status->id }}" @selected($person->status_id == $status->id)>
+                    <option value="{{ $status->id }}">
                         {{ $status->name }}
                     </option>
                 @endforeach

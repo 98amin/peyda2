@@ -45,6 +45,7 @@
             <tr>
                 <th>نام</th>
                 <th>وضعیت</th>
+                <th>عملیات</th>
             </tr>
         </thead>
         <tbody>
@@ -52,12 +53,14 @@
                 <tr>
                     <td>{{ $person->name }}</td>
                     <td>{{ $person->status->name }}</td>
+                    <td><a href="{{ url('/person/' . $person->id . '/edit')}}" class="btn"><i class="bi bi-pencil-square"></i></a></td>
                 </tr>
             @empty
                 <tr>
                     <td colspan="2">موردی یافت نشد.</td>
                 </tr>
             @endforelse
+            
         </tbody>
     </table>
 </body>
