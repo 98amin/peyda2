@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- ✅ Enables mobile responsiveness -->
-    <title>جستجو</title>
+    <title>پیدا</title>
 
     <!-- ✅ Bootstrap and Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
@@ -25,22 +25,22 @@
             font-weight: 200;
             font-style: normal;
         }
-
         html, body {
             height: 100%;
             margin: 0;
+            overflow: hidden; /* ❗️Prevents scrolling */
             font-family: 'Anjoman', sans-serif;
             background: url('/images/peydaVertical.jpg') no-repeat center center fixed;
             background-size: cover;
         }
 
         .overlay {
-            min-height: 100vh;
+            height: 100vh; /* Make sure it fills the screen */
             background-color: rgba(0, 0, 0, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 0 20px; /* Add a bit of side padding on small screens */
         }
 
         .search-box {
@@ -58,6 +58,24 @@
     </style>
 </head>
 <body>
+    <!-- Page Loading div -->
+    <div id="page-loader" style="
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;">
+
+        <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status">
+            <span class="visually-hidden">در حال بارگذاری...</span>
+        </div>
+    </div>
+
     <!-- ✅ Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid d-flex flex-row-reverse justify-content-between">
@@ -77,6 +95,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/associationResults">لیست مراکز درمانی</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="galleryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            گالری
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="galleryDropdown">
+                            <li><a class="dropdown-item" href="/mdeia/gallery/images">تصاویر</a></li>
+                            <li><a class="dropdown-item" href="/media/gallery/videosPage">ویدیوها</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">ارتباط با ما</a> 
+                    </li>
                 </ul>
             </div>
         </div>
@@ -94,11 +124,22 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-3 d-grid">
-                        <button class="btn btn-primary btn-lg" type="submit">جستجو</button>
+                        <button class="btn btn-primary btn-lg" type="submit">جست و جو</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+<!-- Script for page loading -->
+    <script>
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                loader.style.transition = 'opacity 0.5s ease-out';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }
+        });
+    </script>
 </body>
 </html>

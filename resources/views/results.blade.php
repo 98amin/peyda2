@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
         @font-face {
@@ -74,9 +75,57 @@
     </style>
 </head>
 <body>
+<!-- ✅ Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid d-flex flex-row-reverse justify-content-between">
+            <a class="navbar-brand order-2" href="/">پیدا</a>
+            <button class="navbar-toggler order-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="نمایش منو">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse order-3" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">خانه</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/results">لیست تمامی اسامی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/associationResults">لیست مراکز درمانی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">ارتباط با ما</a> 
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
     <div class="overlay">
         <div class="content">
+            <!-- Status Filter Form -->
+            <form method="GET" action="{{ url('/results') }}" class="row mb-4">
+                <div class="col-md-6 mb-2">
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="جست و جو بر اساس نام">
+                </div>
 
+                <div class="col-md-4 mb-2">
+                    <select name="status_id" class="form-select">
+                        <option value="">همه</option>
+                        @foreach($statuses as $status)
+                            <option value="{{ $status->id }}" {{ request('status_id') == $status->id ? 'selected' : '' }}>
+                                {{ $status->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-2 mb-2 text-end">
+                    <button type="submit" class="btn btn-primary w-100">اعمال فیلتر</button>
+                </div>
+            </form>
             <!-- Make the table responsive on small screens -->
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -107,7 +156,7 @@
 
             <!-- Pagination -->
             <div class="d-flex justify-content-center mt-4">
-                {{ $people->links('vendor.pagination.bootstrap-4') }}
+                {{ $people->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
             </div>
         </div>
     </div>

@@ -45,4 +45,13 @@ class PersonController extends Controller
 
         return redirect('/')->with('success', 'اطلاعات با موفقیت ویرایش شد.');
     }
+
+    public function destroy($personId)
+    {
+        $person = Person::findOrFail($personId);
+        $person->delete();
+
+        return redirect('/admin')->with('success', 'Person deleted successfully');
+
+    }
 }

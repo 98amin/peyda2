@@ -86,7 +86,16 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{ $person->name }}</td>
                             <td>{{ $person->status->name }}</td>
-                            <td><a href="{{ url('/person/' . $person->id . '/edit')}}" class="btn"><i class="bi bi-pencil-square"></i></a></td>
+                            <td>
+                                <a href="{{ url('/person/' . $person->id . '/edit')}}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil-square"></i></a>
+                                <form action="{{ url('/person/' . $person->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this person?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     @empty
                         <tr>
